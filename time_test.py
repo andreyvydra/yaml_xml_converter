@@ -9,16 +9,16 @@ if __name__ == '__main__':
     start = time.time()
     converter = main.Converter(INPUT_FILENAME, TEST_OUTPUT_FILENAME)
     converter.convert()
-    print(f"Main converter - {(time.time() - start) * 100}")
+    print(f"Main converter - {(time.time() * 100 - start * 100)}")
 
     start = time.time()
     converter = main_regex.Converter(INPUT_FILENAME, TEST_OUTPUT_FILENAME)
     converter.convert()
-    print(f"Regex converter - {(time.time() - start) * 100}")
+    print(f"Regex converter - {(time.time() * 100 - start * 100)}")
 
     start = time.time()
     main_libraries.main(INPUT_FILENAME, TEST_OUTPUT_FILENAME)
-    print(f"Libraries converter - {(time.time() - start) * 100}")
+    print(f"Libraries converter - {(time.time() * 100 - start * 100)}")
 
     print("_________TEST 2_________")
     start = time.time()

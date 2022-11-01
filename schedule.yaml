@@ -12,16 +12,3 @@
           time: "17:00-18:30"
           teacher: "Polyakov Vladimir Ivanovich"
           room: "Aud. 2326, Kronverkskiy pr., b.49А"
-  - schedule_day:
-    - day: "Thursday"
-      schedule_info:
-        - lesson: "Discrete mathematics"
-          lesson_format: "Offline"
-          time: "15:20-16:50"
-          teacher: "Polyakov Vladimir Ivanovich"
-          room: "Aud. 1404, Kronverkskiy pr., b.49А"
-        - lesson: "Discrete mathematics"
-          lesson_format: "Offline"
-          time: "17:00-18:30"
-          teacher: "Polyakov Vladimir Ivanovich"
-          room: "Aud. 2326, Kronverkskiy pr., b.49А"

@@ -9,6 +9,7 @@ class Converter:
     def convert(self):
         file = open(self.output_filename, "w", encoding="UTF-8")
         file.write(XML_PROLOGUE + "\n" + self.file_converter())
+        file.close()
 
     def file_converter(self):
         all_lines = ["", ]
