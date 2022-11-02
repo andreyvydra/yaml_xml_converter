@@ -13,19 +13,18 @@ class Converter:
         file.close()
 
     def file_converter(self) -> str:
-        all_lines = ["", ]
+        all_lines = []
         cur_index = 1
         space_before_tags = 0
         prev_tag = ""
         for line in open(self.input_filename, encoding="UTF-8"):
             converted_line, space_before_tags, prev_tag, \
-            new_row, delay = self.line_converter(line, space_before_tags,
-                                                 prev_tag)
-            cur_index += delay
-            regex_compiled = re.compile(SPLITER_CHARACTER)
-            values = regex_compiled.split(converted_line)
-            if new_row and cur_index != 2:
-                cur_index = len(all_lines) - 1
+            new_row, back_counter = self.line_converter(line, space_before_tags,
+                                                        prev_tag)
+            cur_index += back_counter
+            values = converted_line.split(SPLITER_CHARACTER)
+            if new_row:
+                cur_index = max(len(all_lines) - 1, 0)
             if len(values) == 1:
                 all_lines.insert(cur_index, values[0])
                 cur_index += 1
@@ -48,11 +47,13 @@ class Converter:
         data["cleaned_key"] = self.clear_key(data["key"])
         data["counted_spaces"] = self.count_spaces(line)
 
+        back_counter = max((spaces_before_tag - data["counted_spaces"]) // 2 - 1, 0)
+
         if len(data["values"]) == 1:
             xml_line = self.get_empty_xml_tag(data)
             return xml_line, data.get("counted_spaces"), \
                    data.get("cleaned_key"), data.get("key").startswith("-"), \
-                   max((spaces_before_tag - data["counted_spaces"]) // 2 - 1, 0)
+                   back_counter
         else:
             regex_compiled = re.compile(r"\"|^\s+|\s+$")
             value = regex_compiled.sub("", data.get("values")[1])
@@ -65,7 +66,7 @@ class Converter:
                            spaces + SPLITER_CHARACTER + prev_spaces + f"</{prev_tag}>"
 
             return xml_line, data.get("counted_spaces"), prev_tag, False, \
-                   max((spaces_before_tag - data["counted_spaces"]) // 2 - 1, 0)
+                   back_counter
 
     @staticmethod
     def get_empty_xml_tag(data: dict) -> str:
